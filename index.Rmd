@@ -1,0 +1,62 @@
+---
+title       : Boston Marathon Qualifying Times
+subtitle    : What You Need to Do to Get to the Race
+author      : Jillian Pollack
+job         : 
+framework   : html5slides        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+# Boston Marathon Qualifying Times
+# What You Need to Run to Get to Boston 
+by Jillian Pollack
+
+--- .class #id 
+
+## Why Run Boston?
+
+The Boston Marathon is the only non-Olympic marathon in the United States that a runner must qualify for.  For this reason, many runners are striving to earn that Boston Qualifier, or BQ.  
+
+The Boston Marathon webpage offers a table with the marathon qualifying times for the next year.  On another website, you can put this time into a pace calculator to figure out what pace per mile you need to run in order to earn the qualifying time.  With my shiny app, you can find the time and pace all in one place!
+
+--- .class #id 
+
+## "I Think I'll Go To Boston"
+
+The qualifying times get slower as one ages, and male times are faster than females.  See the next slide for a plot showing the age groups and times needed for the race, broken down by gender.  You need to run this time between September 14, 2013 and September 8, 2014.  Race day for 2015 is Monday, April 20.  Don't think you have enough time to get a marathon in during this year's qualifying window?  Don't worry...qualifying times will most likely stay the same for next year and you can enter the 2016 race!
+
+```{r plot, echo=TRUE,eval=FALSE}
+library(ggplot2)
+times <- read.table("BostonQualifyingPaces.txt",header=TRUE,sep="")
+times$Time <- as.POSIXct(strptime(times$Time, "%H:%M:%S"))
+qplot(data=times,Age,Time,geom="point",colour=ifelse(Gender=="Male","blue","red"))
+```
+
+--- .class #id 
+
+## Plot of Qualifying Times
+
+```{r plot2, echo=FALSE,width=10,height=10,fig.width=10}
+library(ggplot2)
+times <- read.table("BostonQualifyingPaces.txt",header=TRUE,sep="")
+times$Time <- as.POSIXct(strptime(times$Time, "%H:%M:%S"))
+qplot(data=times,Age,Time,geom="point",colour=ifelse(Gender=="Male","Male","Female"))+ylab("Time (HH:MM)")+labs(colour="Gender")
+```
+
+--- .class #id 
+
+## My Shiny App
+
+Please visit my app where you can select your age on race day and then gender.  Your qualifying time, pace per mile, and a plot displaying your overall time at each mile will appear on the right.  Enjoy, and good luck! 
+
+http://jmp2173.shinyapps.io/DevelopingDataProject/
+ 
+ 
+ 
+  
+   
+Source:  http://www.baa.org/races/boston-marathon/participant-information/qualifying/qualifying-procedure.aspx
